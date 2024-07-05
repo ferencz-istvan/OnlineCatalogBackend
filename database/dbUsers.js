@@ -35,3 +35,10 @@ export async function deleteUserById(id) {
     WHERE user_id=${id}
     `;
 }
+
+export async function getUserByEmail(email) {
+  return await database`
+  SELECT * FROM users
+  WHERE email=${email}
+  `;
+}
