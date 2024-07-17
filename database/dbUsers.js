@@ -42,3 +42,10 @@ export async function getUserByEmail(email) {
   WHERE email=${email}
   `;
 }
+
+export async function getUserIdByEmail(email) {
+  return await database`
+  SELECT user_id FROM users
+  WHERE email=${email}
+  `;
+}

@@ -64,7 +64,7 @@ export async function createStudentsTable() {
         name TEXT NOT NULL,
         class_id INTEGER REFERENCES classes(id),
         parent_id INTEGER REFERENCES parents(id),
-        adress TEXT,
+        address TEXT,
         user_id INTEGER REFERENCES users(user_id)
     )`;
 }

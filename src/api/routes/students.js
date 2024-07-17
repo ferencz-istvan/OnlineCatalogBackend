@@ -30,14 +30,14 @@ studentsRouter.post("/", async (req, res) => {
   const name = req.body.name;
   const class_id = req.body.class_id;
   const parent_id = req.body.parent_id;
-  const adress = req.body.adress;
+  const address = req.body.address;
   const user_id = req.body.user_id;
-  await addStudent(name, class_id, parent_id, adress, user_id);
+  await addStudent(name, class_id, parent_id, address, user_id);
   return res.status(201).json({
     name,
     class_id,
     parent_id,
-    adress,
+    address,
     user_id,
   });
 });
@@ -46,10 +46,10 @@ studentsRouter.put("/:id", async (req, res) => {
   const name = req.body.name;
   const class_id = req.body.class_id;
   const parent_id = req.body.parent_id;
-  const adress = req.body.adress;
+  const address = req.body.address;
   const user_id = req.body.user_id;
   const id = req.params.id;
-  await updateStudent(id, name, class_id, parent_id, adress, user_id);
+  await updateStudent(id, name, class_id, parent_id, address, user_id);
   const updatedStudent = await getStudentById(id);
   return res.status(200).json(updatedStudent[0]);
 });

@@ -14,10 +14,10 @@ export async function getStudentById(id) {
     `;
 }
 
-export async function addStudent(name, class_id, parent_id, adress, user_id) {
+export async function addStudent(name, class_id, parent_id, address, user_id) {
   await database`
-    INSERT INTO students(name, class_id, parent_id, adress, user_id)
-    VALUES (${name}, ${class_id},${parent_id}, ${adress}, ${user_id})
+    INSERT INTO students(name, class_id, parent_id, address, user_id)
+    VALUES (${name}, ${class_id},${parent_id}, ${address}, ${user_id})
     `;
 }
 
@@ -26,12 +26,12 @@ export async function updateStudent(
   name,
   class_id,
   parent_id,
-  adress,
+  address,
   user_id
 ) {
   await database`
     UPDATE students
-    SET name = ${name}, class_id=${class_id}, parent_id=${parent_id}, adress=${adress}, user_id=${user_id}
+    SET name = ${name}, class_id=${class_id}, parent_id=${parent_id}, address=${address}, user_id=${user_id}
     WHERE id = ${id} 
     `;
 }

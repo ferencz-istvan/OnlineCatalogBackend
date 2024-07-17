@@ -11,6 +11,11 @@ import { studentsRouter } from "./src/api/routes/students.js";
 import { notesRouter } from "./src/api/routes/notes.js";
 import { absencesRouter } from "./src/api/routes/absences.js";
 import { tRelationRouter } from "./src/api/routes/tRelations.js";
+import { registrationRouter } from "./src/api/routes/registration.js";
+
+import { loginRouter } from "./src/api/routes/login.js";
+
+import { verifyJWT } from "./src/api/middlewares/verifyJWT.js";
 
 const port = 3000;
 
@@ -35,6 +40,11 @@ server.use((req, res, next) => {
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(bodyParser.json());
+
+server.use("/login", loginRouter);
+server.use("/registration", registrationRouter);
+
+//server.use(verifyJWT);
 
 server.use("/", helloRouter);
 server.use("/users", usersRouter);
