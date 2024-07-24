@@ -5,6 +5,7 @@ import {
   getStudentById,
   updateStudent,
   deleteStudent,
+  classAndParentName,
 } from "../../../database/dbStudents.js";
 
 const studentsRouter = Router();
@@ -59,6 +60,12 @@ studentsRouter.delete("/:id", async (req, res) => {
   await deleteStudent(id);
   res.send("Torolve");
   res.status(204);
+});
+
+studentsRouter.get("/classAndParent/:id", async (req, res) => {
+  const student_id = req.params.id;
+  const classAndParent = await classAndParentName(student_id);
+  res.status(200).json(classAndParent);
 });
 
 export { studentsRouter };

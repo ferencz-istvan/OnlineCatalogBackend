@@ -23,8 +23,8 @@ tRelationRouter.get("/", async (req, res) => {
   res.status(200).json(relations);
 });
 
-tRelationRouter.get("/withClass", async (req, res) => {
-  const class_id = req.body.class_id;
+tRelationRouter.get("/withClass/:id", async (req, res) => {
+  const class_id = req.params.id;
   const relation = await getTRelByClassId(class_id);
   res.status(200).json(relation);
 });

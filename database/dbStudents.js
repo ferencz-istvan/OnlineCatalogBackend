@@ -38,7 +38,38 @@ export async function updateStudent(
 
 export async function deleteStudent(id) {
   await database`
-    DELETE FROM classes
+    DELETE FROM students
     WHERE id=${id}
     `;
+}
+
+export async function searchStudentByUserId(user_id) {
+  return await database`
+  SELECT * FROM students
+  WHERE user_id=${user_id}
+  `;
+}
+
+export async function searchExtendedStudentByUserId(user_id) {
+  return await database`
+  SELECT students.*, CONCAT(classes.grade::text,  classes.name) AS class_name, parents.name AS parent_name 
+  FROM students
+  JOIN classes
+  ON students.class_id = classes.id
+  JOIN parents
+  ON students.parent_id = parents.id
+  WHERE students.user_id=${user_id}
+  `;
+}
+
+export async function classAndParentName(student_id) {
+  return await database`
+  SELECT CONCAT(classes.grade::text,  classes.name) AS class, parents.name 
+  FROM students
+  JOIN classes
+  ON students.class_id = classes.id
+  JOIN parents
+  ON students.parent_id = parents.id
+  WHERE students.id=${student_id}
+  `;
 }

@@ -8,7 +8,12 @@ export async function getTRelations() {
 
 export async function getTRelByClassId(class_id) {
   return await database`
-    SELECT * FROM teachingrelations
+    SELECT subjects.name AS subject, teachers.name AS teacher
+    FROM teachingrelations
+    JOIN subjects
+    ON subject_id = subjects.id
+    JOIN teachers
+    ON teacher_id = teachers.id
     WHERE class_id=${class_id}
     `;
 }
@@ -28,7 +33,7 @@ export async function getTRelByTeacherId(teacher_id) {
 }
 
 export async function getTRelByClassAndSubject(class_id, subject_id) {
-  console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd");
+  //console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd");
   return await database`
     SELECT * FROM teachingrelations
     WHERE class_id=${class_id} AND subject_id=${subject_id}

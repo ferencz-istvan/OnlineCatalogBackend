@@ -5,6 +5,7 @@ import {
   getClassById,
   updateClass,
   deleteClass,
+  getClassmates,
 } from "../../../database/dbClasses.js";
 
 const classesRouter = Router();
@@ -56,6 +57,12 @@ classesRouter.delete("/:id", async (req, res) => {
   await deleteClass(id);
   res.send("Torolve");
   res.status(204);
+});
+
+classesRouter.get("/classmates/:id", async (req, res) => {
+  const id = req.params.id;
+  const classMates = await getClassmates(id);
+  res.status(200).json(classMates);
 });
 
 export { classesRouter };

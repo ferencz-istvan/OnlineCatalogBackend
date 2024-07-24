@@ -36,3 +36,10 @@ export async function deleteClass(id) {
     WHERE id=${id}
     `;
 }
+
+export async function getClassmates(id) {
+  return await database`
+  SELECT * FROM students
+  WHERE class_id=${id}
+  `;
+}

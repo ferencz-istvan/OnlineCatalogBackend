@@ -35,3 +35,10 @@ export async function deleteTeacherById(id) {
     WHERE id=${id}
     `;
 }
+
+export async function searchTeacherByUserId(user_id) {
+  return await database`
+  SELECT * FROM teachers
+  WHERE user_id=${user_id}
+  `;
+}

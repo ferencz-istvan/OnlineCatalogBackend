@@ -39,5 +39,6 @@ export async function deleteNote(id) {
 export async function getNOtesOfStudent(student_id) {
   return await database`
   SELECT * FROM notes WHERE student_id=${student_id}
+  ORDER BY subject_id
   `;
 }

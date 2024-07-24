@@ -35,3 +35,10 @@ export async function deleteParentById(id) {
     WHERE id=${id}
     `;
 }
+
+export async function searchParentByUserId(user_id) {
+  return await database`
+  SELECT * FROM parents
+  WHERE user_id=${user_id}
+  `;
+}

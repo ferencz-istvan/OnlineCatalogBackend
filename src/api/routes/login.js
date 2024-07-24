@@ -63,7 +63,7 @@ loginRouter.post("/", async (req, res) => {
         email: user.email,
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "200s" }
+      { expiresIn: "1d" }
     );
     const refreshToken = jwt.sign(
       {
