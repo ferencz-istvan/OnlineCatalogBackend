@@ -6,7 +6,7 @@ import { helloRouter } from "./src/api/routes/helloWorld.js";
 import { usersRouter } from "./src/api/routes/users.js";
 import { teachersRouter } from "./src/api/routes/teachers.js";
 import { parentsRouter } from "./src/api/routes/parents.js";
-import { subjectsRouter } from "./src/api/routes/subjectt.js";
+import { subjectsRouter } from "./src/api/routes/subjects.js";
 import { classesRouter } from "./src/api/routes/classes.js";
 import { studentsRouter } from "./src/api/routes/students.js";
 import { notesRouter } from "./src/api/routes/notes.js";
@@ -31,7 +31,6 @@ const corsOptions = {
 
 server.use(cors(corsOptions));
 
-//ez normál esetben nem biztonságos, mert így mindenki hozzáfér a szerverhez
 //res.header("Access-Control-Allow-Headers", "*");
 /* server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

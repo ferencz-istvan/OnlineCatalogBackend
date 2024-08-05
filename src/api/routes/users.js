@@ -14,8 +14,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 config();
-import { promises as fsPromises } from "fs";
-import path from "path";
+//import { promises as fsPromises } from "fs";
+//import path from "path";
 
 async function hashPassword(password) {
   const saltRounds = 12;
@@ -67,9 +67,16 @@ usersRouter.put("/:id", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const id = req.params.id;
+  try {
+    const securePassword = await hashPassword(password);
+    await updateUser(id, role, email, username, securePassword);
+    const updatedUser = await getUserById(id);
+    return res.status(200).json(updatedUser[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error in changeing user datas" });
+  }
   await updateUser(id, role, email, username, password);
-  const updatedUser = await getUserById(id);
-  return res.status(200).json(updatedCity[0]);
 });
 
 usersRouter.delete("/:id", async (req, res) => {
@@ -97,7 +104,6 @@ usersRouter.post("/login", async (req, res) => {
   const password = req.body.password;
   try {
     const user = (await getUserByEmail(email))[0];
-    /* console.log(user); */
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }

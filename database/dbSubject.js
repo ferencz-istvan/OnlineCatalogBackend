@@ -21,7 +21,7 @@ export async function addSubject(description, name) {
     `;
 }
 
-export async function updateSubject(id, description, name) {
+export async function updateSubject(id, name, description) {
   await database`
     UPDATE subjects
     SET name = ${name}, description=${description}

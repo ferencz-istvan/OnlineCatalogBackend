@@ -35,3 +35,20 @@ export async function deleteAbsence(id) {
     WHERE id=${id}
     `;
 }
+
+export async function getAbsencesOfStudent(student_id) {
+  return await database`
+  SELECT * FROM absences WHERE student_id=${student_id}
+  ORDER BY subject_id
+  `;
+}
+
+export async function getAbsencesOfClass(class_id) {
+  return await database`
+ 	 SELECT absences.* 
+	 FROM absences 
+	 JOIN students ON absences.student_id=students.id
+	  WHERE students.class_id=${class_id}
+	  ORDER BY student_id ASC, date DESC
+  `;
+}

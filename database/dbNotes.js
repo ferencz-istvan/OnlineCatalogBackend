@@ -42,3 +42,13 @@ export async function getNOtesOfStudent(student_id) {
   ORDER BY subject_id
   `;
 }
+
+export async function getNotesOfClass(class_id) {
+  return await database`
+ 	 SELECT notes.* 
+	 FROM notes 
+	 JOIN students ON notes.student_id=students.id
+	  WHERE students.class_id=${class_id}
+	  ORDER BY notes.student_id ASC, notes.date DESC
+  `;
+}

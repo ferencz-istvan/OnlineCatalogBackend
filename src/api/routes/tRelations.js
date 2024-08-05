@@ -29,14 +29,14 @@ tRelationRouter.get("/withClass/:id", async (req, res) => {
   res.status(200).json(relation);
 });
 
-tRelationRouter.get("/withSubject", async (req, res) => {
-  const subject_id = req.body.subject_id;
+tRelationRouter.get("/withSubject/:id", async (req, res) => {
+  const id = req.params.id;
   const relation = await getTRelBySubjectId(subject_id);
   res.status(200).json(relation);
 });
 
-tRelationRouter.get("/withTeacher", async (req, res) => {
-  const teacher_id = req.body.teacher_id;
+tRelationRouter.get("/withTeacher/:id", async (req, res) => {
+  const teacher_id = req.params.id;
   const relation = await getTRelByTeacherId(teacher_id);
   res.status(200).json(relation);
 });
@@ -88,7 +88,7 @@ tRelationRouter.delete("/", async (req, res) => {
   const subject_id = req.body.subject_id;
   const teacher_id = req.body.teacher_id;
   await deleteTRelation(class_id, subject_id, teacher_id);
-  res.send("Torolve");
+  res.json({ message: "Torolve" });
   res.status(204);
 });
 

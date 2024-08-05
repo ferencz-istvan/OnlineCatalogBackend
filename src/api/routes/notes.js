@@ -6,6 +6,7 @@ import {
   updateNote,
   deleteNote,
   getNOtesOfStudent,
+  getNotesOfClass,
 } from "../../../database/dbNotes.js";
 
 const notesRouter = Router();
@@ -64,6 +65,13 @@ notesRouter.get("/ofStudent/:id", async (req, res) => {
   console.log(`student_id: ${student_id}`);
   const notesOfStudent = await getNOtesOfStudent(student_id);
   return res.status(200).json(notesOfStudent);
+});
+
+notesRouter.get("/ofClass/:id", async (req, res) => {
+  const class_id = req.params.id;
+  console.log(`class_id: ${class_id}`);
+  const notesOfClass = await getNotesOfClass(class_id);
+  return res.status(200).json(notesOfClass);
 });
 
 export { notesRouter };

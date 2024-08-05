@@ -1,7 +1,10 @@
 import { Router } from "express";
-import { addUser } from "../../../database/dbUsers.js";
 import bcrypt from "bcrypt";
-import { getUserIdByEmail } from "../../../database/dbUsers.js";
+import {
+  addUser,
+  getUserByEmail,
+  getUserIdByEmail,
+} from "../../../database/dbUsers.js";
 import { addStudent } from "../../../database/dbStudents.js";
 import { addTeacher } from "../../../database/dbTeachers.js";
 import { addParent } from "../../../database/dbParents.js";
@@ -21,9 +24,15 @@ registrationRouter.use((req, res, next) => {
 });
 
 registrationRouter.post("/", async (req, res) => {
-  console.log(req.body);
-  const role = req.body.role;
   const email = req.body.email;
+  const usersWithSameEmail = await getUserByEmail(email);
+  if (usersWithSameEmail.length >= 1) {
+    return res
+      .status(409)
+      .json({ message: "That email is already registrated" });
+  }
+
+  const role = req.body.role;
   const username = req.body.username;
   const password = req.body.password;
 
@@ -61,7 +70,7 @@ registrationRouter.post("/", async (req, res) => {
       default:
         console.log("Error in student/parent/teacher registration.");
     }
-    return res.status(201).json(userId[0]);
+    return res.status(200).json(userId[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error creating user" });

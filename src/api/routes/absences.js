@@ -5,6 +5,8 @@ import {
   getAbsenceById,
   updateAbsence,
   deleteAbsence,
+  getAbsencesOfStudent,
+  getAbsencesOfClass,
 } from "../../../database/dbAbsences.js";
 
 const absencesRouter = Router();
@@ -56,6 +58,20 @@ absencesRouter.delete("/:id", async (req, res) => {
   await deleteAbsence(id);
   res.send("Torolve");
   res.status(204);
+});
+
+absencesRouter.get("/ofStudent/:id", async (req, res) => {
+  const student_id = req.params.id;
+  console.log(`student_id: ${student_id}`);
+  const absencesOfStudent = await getAbsencesOfStudent(student_id);
+  return res.status(200).json(absencesOfStudent);
+});
+
+absencesRouter.get("/ofClass/:id", async (req, res) => {
+  const class_id = req.params.id;
+  console.log(`class_id: ${class_id}`);
+  const absencesOfClass = await getAbsencesOfClass(class_id);
+  return res.status(200).json(absencesOfClass);
 });
 
 export { absencesRouter };

@@ -27,13 +27,17 @@ export async function getTRelBySubjectId(subject_id) {
 
 export async function getTRelByTeacherId(teacher_id) {
   return await database`
-    SELECT * FROM teachingrelations
+    SELECT subjects.name AS subject, teachingrelations.subject_id, CONCAT(classes.grade, classes.name) AS class, teachingrelations.class_id
+    FROM teachingrelations
+    JOIN subjects
+    ON subject_id = subjects.id
+    JOIN classes
+    ON class_id = classes.id
     WHERE teacher_id=${teacher_id}
     `;
 }
 
 export async function getTRelByClassAndSubject(class_id, subject_id) {
-  //console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd");
   return await database`
     SELECT * FROM teachingrelations
     WHERE class_id=${class_id} AND subject_id=${subject_id}
