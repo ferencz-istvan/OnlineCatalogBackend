@@ -73,3 +73,36 @@ export async function classAndParentName(student_id) {
   WHERE students.id=${student_id}
   `;
 }
+
+export async function getAllChildOfParent(parent_id) {
+  return await database`
+  SELECT * 
+  FROM students
+  WHERE parent_id=${parent_id}
+  `;
+}
+
+export async function updateStudentParentId(id, phoneNumber) {
+  const parentId = await database`
+    SELECT parents.id
+    FROM parents
+    WHERE parents.phone_number = ${phoneNumber}
+  `;
+  if (!parentId || parentId.length === 0) {
+    throw new Error(`Parent with phone number ${phoneNumber} not found`);
+  }
+  const parentIdValue = parentId[0].id;
+  await database`
+    UPDATE students
+    SET parent_id = ${parentIdValue}
+    WHERE id = ${id}
+  `;
+}
+
+export async function updateParentOfStudent(student_id, parent_id) {
+  const updatedStudent = await database`
+  UPDATE students
+  SET parent_id=${parent_id}
+  WHERE id=${student_id}
+  `;
+}

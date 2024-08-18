@@ -9,6 +9,7 @@ import {
   getTRelByClassAndSubject,
   getTRelBySubjectAndTeacher,
   getTRelByTeacherAndClass,
+  getSubjectsByClassId,
 } from "../../../database/dbTRelations.js";
 
 const tRelationRouter = Router();
@@ -27,6 +28,11 @@ tRelationRouter.get("/withClass/:id", async (req, res) => {
   const class_id = req.params.id;
   const relation = await getTRelByClassId(class_id);
   res.status(200).json(relation);
+});
+tRelationRouter.get("/subjectsOfClass/:id", async (req, res) => {
+  const class_id = req.params.id;
+  const data = await getSubjectsByClassId(class_id);
+  res.status(200).json(data);
 });
 
 tRelationRouter.get("/withSubject/:id", async (req, res) => {

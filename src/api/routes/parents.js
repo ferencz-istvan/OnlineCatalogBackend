@@ -5,6 +5,7 @@ import {
   getParentById,
   updateParent,
   deleteParentById,
+  getParentByPhoneNumber,
 } from "../../../database/dbParents.js";
 
 const parentsRouter = Router();
@@ -24,6 +25,19 @@ parentsRouter.get("/:id", async (req, res) => {
   const parentById = await getParentById(id);
   console.log(`parentId: ${id}`);
   res.status(200).json(parentById[0]);
+});
+
+parentsRouter.post("/byPhoneNumber", async (req, res) => {
+  const phoneNumber = req.body.phone_number;
+  console.log(`Searched phone number: ${phoneNumber}`);
+  const parent = await getParentByPhoneNumber(phoneNumber);
+  console.log("eredmény");
+  console.log(parent);
+  if (parent.length > 0) {
+    return res.status(200).json(parent[0]);
+  } else {
+    return res.status(404).json({ message: "not found" });
+  }
 });
 
 parentsRouter.post("/", async (req, res) => {

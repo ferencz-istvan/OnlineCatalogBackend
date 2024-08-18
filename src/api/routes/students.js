@@ -6,6 +6,9 @@ import {
   updateStudent,
   deleteStudent,
   classAndParentName,
+  getAllChildOfParent,
+  updateStudentParentId,
+  updateParentOfStudent,
 } from "../../../database/dbStudents.js";
 
 const studentsRouter = Router();
@@ -66,6 +69,29 @@ studentsRouter.get("/classAndParent/:id", async (req, res) => {
   const student_id = req.params.id;
   const classAndParent = await classAndParentName(student_id);
   res.status(200).json(classAndParent);
+});
+
+studentsRouter.get("/ofParent/:id", async (req, res) => {
+  const id = req.params.id;
+  const studentsOfParent = await getAllChildOfParent(id);
+  console.log(`parent: ${id}`);
+  res.status(200).json(studentsOfParent);
+});
+
+studentsRouter.patch("/:id/parentWithPhoneNum", async (req, res) => {
+  const id = req.params.id;
+  const phoneNumber = req.body.phone_number;
+  await updateStudentParentId(id, phoneNumber);
+  const updatedStudent = await getStudentById(id);
+  return res.status(200).json(updatedStudent[0]);
+});
+
+studentsRouter.patch("/parentOfStudent/:id", async (req, res) => {
+  const student_id = req.params.id;
+  const parent_id = req.body.parent_id;
+  await updateParentOfStudent(student_id, parent_id);
+  const updatedStudent = await getStudentById(student_id);
+  return res.status(200).json(updatedStudent[0]);
 });
 
 export { studentsRouter };

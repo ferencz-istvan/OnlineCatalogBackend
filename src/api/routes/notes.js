@@ -56,7 +56,7 @@ notesRouter.put("/:id", async (req, res) => {
 notesRouter.delete("/:id", async (req, res) => {
   const id = req.params.id;
   await deleteNote(id);
-  res.send("Torolve");
+  res.json({ message: "Successfully deleted" });
   res.status(204);
 });
 

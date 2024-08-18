@@ -33,14 +33,15 @@ export async function createTeachersSubjectsParentsTable() {
   await database`CREATE TABLE IF NOT EXISTS subjects 
     (
         id SERIAL PRIMARY KEY,
-        description TEXT
+        description TEXT,
+        name TEXT
     )
     `;
   await database`CREATE TABLE IF NOT EXISTS parents 
     (
         id SERIAL PRIMARY KEY,
         name TEXT,
-        phone_number INTEGER,
+        phone_number TEXT,
         user_id INTEGER REFERENCES users(user_id)
     )
     `;

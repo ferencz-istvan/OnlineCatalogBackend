@@ -14,6 +14,13 @@ export async function getParentById(id) {
     `;
 }
 
+export async function getParentByPhoneNumber(phoneNumber) {
+  return await database`
+  SELECT * FROM parents
+  WHERE phone_number=${phoneNumber}
+  `;
+}
+
 export async function addParent(name, phone_number, user_id) {
   await database`
     INSERT INTO parents(name, phone_number, user_id)

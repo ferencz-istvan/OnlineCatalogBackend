@@ -17,6 +17,16 @@ export async function getTRelByClassId(class_id) {
     WHERE class_id=${class_id}
     `;
 }
+export async function getSubjectsByClassId(class_id) {
+  return await database`
+    SELECT DISTINCT subjects.id, subjects.name, subjects.description
+    FROM teachingrelations
+    JOIN subjects
+    ON subject_id = subjects.id
+    WHERE class_id=${class_id}
+    ORDER BY subjects.name
+    `;
+}
 
 export async function getTRelBySubjectId(subject_id) {
   return await database`

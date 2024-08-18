@@ -4,7 +4,7 @@ import database from "./db.js";
 export async function getClasses() {
   return await database`
     SELECT * FROM classes 
-    ORDER BY id;
+    ORDER BY grade, name;
     `;
 }
 
