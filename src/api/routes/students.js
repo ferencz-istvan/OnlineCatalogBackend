@@ -10,6 +10,7 @@ import {
   updateStudentParentId,
   updateParentOfStudent,
 } from "../../../database/dbStudents.js";
+import { getParentIdByPhoneNumber } from "../../../database/dbParents.js";
 
 const studentsRouter = Router();
 
@@ -47,12 +48,14 @@ studentsRouter.post("/", async (req, res) => {
 });
 
 studentsRouter.put("/:id", async (req, res) => {
+  console.log("elértem idáig");
   const name = req.body.name;
   const class_id = req.body.class_id;
   const parent_id = req.body.parent_id;
   const address = req.body.address;
   const user_id = req.body.user_id;
   const id = req.params.id;
+  console.log(`${name}+${class_id}+${parent_id}+${address}+${user_id}+${id}`);
   await updateStudent(id, name, class_id, parent_id, address, user_id);
   const updatedStudent = await getStudentById(id);
   return res.status(200).json(updatedStudent[0]);
@@ -78,10 +81,16 @@ studentsRouter.get("/ofParent/:id", async (req, res) => {
   res.status(200).json(studentsOfParent);
 });
 
+//i work on this function
 studentsRouter.patch("/:id/parentWithPhoneNum", async (req, res) => {
   const id = req.params.id;
   const phoneNumber = req.body.phone_number;
-  await updateStudentParentId(id, phoneNumber);
+  //await updateStudentParentId(id, phoneNumber);
+  const parentId = getParentIdByPhoneNumber(phoneNumber);
+  if (!parentId || parentId.length === 0 || parentId === 0) {
+    throw new Error(`Parent with phone number ${phoneNumber} not found`);
+  }
+  await updateStudentParentId(id, parentId[0]);
   const updatedStudent = await getStudentById(id);
   return res.status(200).json(updatedStudent[0]);
 });

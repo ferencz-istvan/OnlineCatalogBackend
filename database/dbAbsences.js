@@ -43,12 +43,12 @@ export async function getAbsencesOfStudent(student_id) {
   `;
 }
 
-export async function getAbsencesOfClass(class_id) {
+export async function getAbsencesOfClass(class_id, subject_id) {
   return await database`
  	 SELECT absences.* 
 	 FROM absences 
 	 JOIN students ON absences.student_id=students.id
-	  WHERE students.class_id=${class_id}
+	  WHERE students.class_id=${class_id} AND absences.subject_id=${subject_id}
 	  ORDER BY student_id ASC, date DESC
   `;
 }

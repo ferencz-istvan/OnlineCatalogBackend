@@ -82,19 +82,19 @@ export async function getAllChildOfParent(parent_id) {
   `;
 }
 
-export async function updateStudentParentId(id, phoneNumber) {
-  const parentId = await database`
+export async function updateStudentParentId(id, parentId) {
+  /* const parentId = await database`
     SELECT parents.id
     FROM parents
     WHERE parents.phone_number = ${phoneNumber}
   `;
   if (!parentId || parentId.length === 0) {
     throw new Error(`Parent with phone number ${phoneNumber} not found`);
-  }
-  const parentIdValue = parentId[0].id;
+  } */
+  //const parentIdValue = parentId[0].id;
   await database`
     UPDATE students
-    SET parent_id = ${parentIdValue}
+    SET parent_id = ${parentId}
     WHERE id = ${id}
   `;
 }

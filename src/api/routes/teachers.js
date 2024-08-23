@@ -37,9 +37,11 @@ teachersRouter.post("/", async (req, res) => {
 });
 
 teachersRouter.put("/:id", async (req, res) => {
+  console.log("itt vagyok!!!!");
   const name = req.body.name;
   const user_id = req.body.user_id;
   const id = req.params.id;
+  console.log(`${name}+${user_id}+${id}`);
   await updateTeacher(id, name, user_id);
   const updatedTeacher = await getTeacherById(id);
   return res.status(200).json(updatedTeacher[0]);

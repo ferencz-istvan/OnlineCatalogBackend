@@ -67,10 +67,12 @@ absencesRouter.get("/ofStudent/:id", async (req, res) => {
   return res.status(200).json(absencesOfStudent);
 });
 
-absencesRouter.get("/ofClass/:id", async (req, res) => {
+absencesRouter.post("/ofClass/:id", async (req, res) => {
   const class_id = req.params.id;
+  const subject_id = req.body.subject_id;
   console.log(`class_id: ${class_id}`);
-  const absencesOfClass = await getAbsencesOfClass(class_id);
+  console.log(`subject_id: ${subject_id}`);
+  const absencesOfClass = await getAbsencesOfClass(class_id, subject_id);
   return res.status(200).json(absencesOfClass);
 });
 

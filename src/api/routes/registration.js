@@ -51,7 +51,7 @@ registrationRouter.post("/", async (req, res) => {
     switch (role) {
       case "Student":
         if (!parent_id) {
-          parent_id = 2;
+          parent_id = 12;
         }
         await addStudent(
           username,

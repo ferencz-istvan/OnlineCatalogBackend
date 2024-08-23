@@ -49,3 +49,11 @@ export async function searchParentByUserId(user_id) {
   WHERE user_id=${user_id}
   `;
 }
+
+export async function getParentIdByPhoneNumber(phoneNumber) {
+  return await database`
+  SELECT id 
+  FROM parents
+  WHERE phone_number =${phoneNumber}
+  `;
+}
