@@ -40,12 +40,17 @@ registrationRouter.post("/", async (req, res) => {
   let parent_id = req.body.parent_id;
   const address = req.body.address;
   const phone_number = req.body.phone_number;
+  console.log("USERNAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+  console.log(username);
 
   try {
     const securePassword = await hashPassword(password);
     await addUser(role, email, username, securePassword);
     const userId = await getUserIdByEmail(email);
-    const { user_id } = userId[0];
+    const user_id = userId;
+    console.log("USER ID !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    console.log(user_id);
+    //const { user_id } = userId;
 
     //registration depending from role
     switch (role) {
@@ -76,5 +81,58 @@ registrationRouter.post("/", async (req, res) => {
     res.status(500).json({ message: "Error creating user" });
   }
 });
+/* registrationRouter.post("/", async (req, res) => {
+  const email = req.body.email;
+  const usersWithSameEmail = await getUserByEmail(email);
+  if (usersWithSameEmail.rows.length >= 1) {
+    return res
+      .status(409)
+      .json({ message: "That email is already registrated" });
+  }
+
+  const role = req.body.role;
+  const username = req.body.username;
+  const password = req.body.password;
+
+  const class_id = req.body.class_id;
+  let parent_id = req.body.parent_id;
+  const address = req.body.address;
+  const phone_number = req.body.phone_number;
+
+  try {
+    const securePassword = await hashPassword(password);
+    await addUser(role, email, username, securePassword);
+    const userIdResult = await getUserIdByEmail(email);
+    const userId = userIdResult.rows[0].user_id;
+
+    //registration depending from role
+    switch (role) {
+      case "Student":
+        if (!parent_id) {
+          parent_id = 12;
+        }
+        await addStudent(
+          username,
+          parseInt(class_id),
+          parent_id,
+          address,
+          userId
+        );
+        break;
+      case "Parent":
+        await addParent(username, phone_number, userId);
+        break;
+      case "Teacher":
+        await addTeacher(username, userId);
+        break;
+      default:
+        console.log("Error in student/parent/teacher registration.");
+    }
+    return res.status(200).json({ userId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error creating user" });
+  }
+}); */
 
 export { registrationRouter };

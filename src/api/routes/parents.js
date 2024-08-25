@@ -24,7 +24,7 @@ parentsRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
   const parentById = await getParentById(id);
   console.log(`parentId: ${id}`);
-  res.status(200).json(parentById[0]);
+  res.status(200).json(parentById);
 });
 
 parentsRouter.post("/byPhoneNumber", async (req, res) => {

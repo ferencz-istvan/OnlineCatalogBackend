@@ -30,18 +30,7 @@ const corsOptions = {
 };
 
 server.use(cors(corsOptions));
-
-//res.header("Access-Control-Allow-Headers", "*");
-/* server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  next();
-}); */
-
+//there was commentes code segment
 server.use((req, res, next) => {
   console.log("A request has been received");
   next();
@@ -75,3 +64,14 @@ server.use((_req, res) => {
 server.listen(port, () => {
   console.log(`The server started on the following port -> localhost:${port} `);
 });
+
+//res.header("Access-Control-Allow-Headers", "*");
+/* server.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  next();
+}); */
